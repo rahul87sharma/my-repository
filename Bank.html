@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bank</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 90px;
+      margin: auto;
+    }
+    .container {
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+    }
+    button {
+      padding: 10px 15px;
+      margin: 5px;
+      cursor: pointer;
+    }
+    input {
+      width: 100%;
+      padding: 8px;
+      margin: 10px 0;
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Bank</h1>
+    <div>
+      <button onclick="createAccount()">Create New Account</button>
+      <p id="accountStatus">Account not created</p>
+    </div>
+    <div>
+      <label for="amount">Enter Amount:</label>
+      <input type="number" id="amount" placeholder="Enter amount">
+    </div>
+    <div>
+      <button onclick="deposit()">Deposit</button>
+      <button onclick="withdraw()">Withdraw</button>
+    </div>
+    <div>
+      <p id="balance">My Balance: ₹0</p>
+    </div>
+  </div>
+  <script>
+    let accountBalance = 0;
+
+    const account = {
+      isCreated: false
+    };
+ 
+    function createAccount() {
+      if (!account.isCreated) {
+        account.isCreated = true;
+        document.getElementById("accountStatus").innerText = "Account created successfully!";
+        document.getElementById("balance").innerText = "Balance: ₹0";
+      } else {
+        alert("Account is already created!");
+      }
+    }
+
+    function deposit() {
+      if (!account.isCreated) {
+        alert("Please create an account first!");
+        return;
+      }
+      
+      const amount = parseFloat(document.getElementById("amount").value);
+      if (amount > 0) {
+        accountBalance += amount;
+        document.getElementById("balance").innerText = `Balance: ₹${accountBalance}`;
+        alert(`Successfully deposited ₹${amount}`);
+      } else {
+        alert("Please enter a valid amount!");
+      }
+    }
+
+    function withdraw() {
+      if (!account.isCreated) {
+        alert("Please create an account first!");
+        return;
+      }
+      
+      const amount = parseFloat(document.getElementById("amount").value);
+      if (amount > 0 && amount <= accountBalance) {
+        accountBalance -= amount;
+        document.getElementById("balance").innerText = `Balance: ₹${accountBalance}`;
+        alert(`Successfully withdrew ₹${amount}`);
+      } else if (amount > accountBalance) {
+        alert("Insufficient balance!");
+      } else {
+        alert("Please enter a valid amount!");
+      }
+    }
+  </script>
+</body>
+</html>
