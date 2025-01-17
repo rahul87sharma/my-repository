@@ -1,3 +1,5 @@
+// Question : Given an array of strings, group them into anagrams.
+
 function groupAnagrams(strs) {
     const map = new Map();
 
